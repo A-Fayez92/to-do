@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Auth\EmailVerificationController;
 use App\Http\Controllers\Auth\LogoutController;
+use App\Http\Controllers\LocaleController;
 use App\Http\Livewire\Auth\Login;
 use App\Http\Livewire\Auth\Passwords\Confirm;
 use App\Http\Livewire\Auth\Passwords\Email;
@@ -21,36 +22,41 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::view('/', 'welcome')->name('home');
+Route::get('change-locale/{locale}', LocaleController::class)->name('change.locale');
 
-Route::middleware('guest')->group(function () {
-    Route::get('login', Login::class)
-        ->name('login');
+Route::middleware('locale')->group(function () {
 
-    Route::get('register', Register::class)
-        ->name('register');
-});
+    Route::view('/', 'welcome')->name('home');
 
-Route::get('password/reset', Email::class)
-    ->name('password.request');
+    Route::middleware('guest')->group(function () {
+        Route::get('login', Login::class)
+            ->name('login');
 
-Route::get('password/reset/{token}', Reset::class)
-    ->name('password.reset');
+        Route::get('register', Register::class)
+            ->name('register');
+    });
 
-Route::middleware('auth')->group(function () {
-    Route::get('email/verify', Verify::class)
-        ->middleware('throttle:6,1')
-        ->name('verification.notice');
+    Route::get('password/reset', Email::class)
+        ->name('password.request');
 
-    Route::get('password/confirm', Confirm::class)
-        ->name('password.confirm');
-});
+    Route::get('password/reset/{token}', Reset::class)
+        ->name('password.reset');
 
-Route::middleware('auth')->group(function () {
-    Route::get('email/verify/{id}/{hash}', EmailVerificationController::class)
-        ->middleware('signed')
-        ->name('verification.verify');
+    Route::middleware('auth')->group(function () {
+        Route::get('email/verify', Verify::class)
+            ->middleware('throttle:6,1')
+            ->name('verification.notice');
 
-    Route::post('logout', LogoutController::class)
-        ->name('logout');
+        Route::get('password/confirm', Confirm::class)
+            ->name('password.confirm');
+    });
+
+    Route::middleware('auth')->group(function () {
+        Route::get('email/verify/{id}/{hash}', EmailVerificationController::class)
+            ->middleware('signed')
+            ->name('verification.verify');
+
+        Route::get('logout', LogoutController::class)
+            ->name('logout');
+    });
 });

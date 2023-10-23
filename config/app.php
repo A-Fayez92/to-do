@@ -87,6 +87,19 @@ return [
 
     /*
     |--------------------------------------------------------------------------
+    | Application Supported Locales
+    |--------------------------------------------------------------------------
+    |
+    | The application supported locales determines the locales that will be
+    | used by the translation service provider. You are free to set this
+    | value to any of the locales which will be supported by the application.
+    |
+    */
+
+    'supported_locales' => ['en', 'ar'],
+
+    /*
+    |--------------------------------------------------------------------------
     | Application Fallback Locale
     |--------------------------------------------------------------------------
     |
