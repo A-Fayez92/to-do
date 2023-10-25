@@ -24,6 +24,7 @@ class DatabaseSeeder extends Seeder
             'email' => 'test@example.com',
             'password' => bcrypt('password'),
             'locale' => null,
+            'is_admin' => true,
         ]);
 
         $admin->todos()->saveMany(\App\Models\Todo::factory(15)->make())->each(function ($todo) {
