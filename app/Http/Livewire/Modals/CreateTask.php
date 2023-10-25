@@ -3,11 +3,10 @@
 namespace App\Http\Livewire\Modals;
 
 use LivewireUI\Modal\ModalComponent;
-use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
+use Masmerise\Toaster\Toaster;
 
 class CreateTask extends ModalComponent
 {
-    use AuthorizesRequests;
     public $title = [], $id , $todo;
     public function render()
     {
@@ -32,8 +31,9 @@ class CreateTask extends ModalComponent
             ]);
             $this->dispatch('refreshTasks');
             $this->closeModal();
+            Toaster::success('toaster.success.create_task');
         } catch (\Throwable $th) {
-            return redirect()->back();
+            return redirect()->back()->error('toaster.error.create_task');
         }
     }
 }

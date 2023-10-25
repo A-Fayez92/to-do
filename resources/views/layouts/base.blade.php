@@ -25,6 +25,7 @@
     </head>
 
     <body>
+        <x-toaster-hub />
         @include('layouts.navbar')
         <main>
         @yield('body')

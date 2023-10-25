@@ -78,5 +78,6 @@
     "results": "نتائج",
     "No Tasks": "لا توجد مهام",
     "No Todos": "لا توجد قوائم",
-    "Go to Todo List": "الذهاب إلى قائمة المهام"
+    "Go to Todo List": "الذهاب إلى قائمة المهام",
+    "Task Created Successfully.": "تم إنشاء المهمة بنجاح."
 }

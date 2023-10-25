@@ -2,6 +2,7 @@
 
 namespace App\Http\Livewire\Modals;
 
+use Masmerise\Toaster\Toaster;
 use LivewireUI\Modal\ModalComponent;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 
@@ -30,11 +31,15 @@ class EditTask extends ModalComponent
             'title.en' => 'required|min:3',
             'title.ar' => 'required|min:3'
         ]);
-
+        try{
         $this->task->update([
             'title' => $this->title
         ]);
         $this->dispatch('refreshTasks');
         $this->closeModal();
+        Toaster::success('toaster.success.update_task');
+        }catch(\Throwable $th){
+            return redirect()->back()->error('toaster.error.update_task');
+        }
     }
 }

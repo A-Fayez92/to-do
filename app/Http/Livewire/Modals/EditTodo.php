@@ -3,6 +3,7 @@
 namespace App\Http\Livewire\Modals;
 
 use App\Models\Todo;
+use Masmerise\Toaster\Toaster;
 use LivewireUI\Modal\ModalComponent;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 
@@ -30,12 +31,16 @@ class EditTodo extends ModalComponent
             'title.en' => 'required|min:3',
             'title.ar' => 'required|min:3'
         ]);
-
+        try{
         $todo = Todo::findOrfail($this->id);
         $todo->update([
             'title' => $this->title
         ]);
         $this->dispatch('refreshTodos');
         $this->closeModal();
+        Toaster::success('toaster.success.update_todo');
+        }catch(\Throwable $th){
+            return redirect()->back()->error('toaster.error.update_todo');
+        }
     }
 }

@@ -3,6 +3,7 @@
 namespace App\Http\Livewire\Modals;
 
 use App\Models\Todo;
+use Masmerise\Toaster\Toaster;
 use Illuminate\Support\Facades\DB;
 use LivewireUI\Modal\ModalComponent;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
@@ -37,9 +38,10 @@ class DeleteTodo extends ModalComponent
             DB::commit();
             $this->dispatch('refreshTodos');
             $this->closeModal();
+            Toaster::success('toaster.success.delete_todo');
         } catch (\Throwable $th) {
             DB::rollBack();
-            return redirect()->back();
+            return redirect()->back()->error('toaster.error.delete_todo');
         }
     }
 }

@@ -2,14 +2,11 @@
 
 namespace App\Http\Livewire\Modals;
 
-use App\Models\Todo;
-use Livewire\Component;
+use Masmerise\Toaster\Toaster;
 use LivewireUI\Modal\ModalComponent;
-use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 
 class CreateTodo extends ModalComponent
 {
-    use AuthorizesRequests;
     public $title = [
         'en' => '',
         'ar' => ''
@@ -25,10 +22,15 @@ class CreateTodo extends ModalComponent
             'title.en' => 'required|min:3',
             'title.ar' => 'required|min:3'
         ]);
+        try{
         auth()->user()->todos()->create([
             'title' => $this->title
         ]);
         $this->dispatch('refreshTodos');
         $this->closeModal();
+        Toaster::success('toaster.success.create_todo');
+        }catch(\Throwable $th){
+            return redirect()->back()->error('toaster.error.create_todo');
+        }
     }
 }
