@@ -79,5 +79,14 @@
     "No Tasks": "لا توجد مهام",
     "No Todos": "لا توجد قوائم",
     "Go to Todo List": "الذهاب إلى قائمة المهام",
-    "Task Created Successfully.": "تم إنشاء المهمة بنجاح."
+    "Task Created Successfully.": "تم إنشاء المهمة بنجاح.",
+    "Todo Lists": "قوائم المهام",
+    "Tasks": "المهام",
+    "Task": "مهمة",
+    "Completed at": "تم الإنتهاء في",
+    "User": "مستخدم",
+    "Users": "المستخدمين",
+    "Email": "البريد الإلكتروني",
+    "Is admin": "مدير",
+    "Completed": "مكتمل"
 }

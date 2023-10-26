@@ -18,6 +18,7 @@ use Illuminate\Session\Middleware\AuthenticateSession;
 use Illuminate\Session\Middleware\StartSession;
 use Illuminate\View\Middleware\ShareErrorsFromSession;
 use BezhanSalleh\FilamentLanguageSwitch\FilamentLanguageSwitchPlugin;
+use Filament\SpatieLaravelTranslatablePlugin;
 
 class AdminPanelProvider extends PanelProvider
 {
@@ -58,7 +59,9 @@ class AdminPanelProvider extends PanelProvider
             ->plugins([
                 FilamentLanguageSwitchPlugin::make()
                     ->renderHookName('panels::global-search.before'),
-            ])
-            ;
+                SpatieLaravelTranslatablePlugin::make()
+                    ->defaultLocales(['en', 'ar'])
+
+            ]);
     }
 }
