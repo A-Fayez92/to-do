@@ -5,6 +5,7 @@ namespace Database\Seeders;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use App\Models\User;
 use Illuminate\Database\Seeder;
+use Database\Seeders\MailProviderSeeder;
 
 class DatabaseSeeder extends Seeder
 {
@@ -30,5 +31,10 @@ class DatabaseSeeder extends Seeder
         $admin->todos()->saveMany(\App\Models\Todo::factory(15)->make())->each(function ($todo) {
             $todo->tasks()->saveMany(\App\Models\Task::factory(15)->make());
         });
+
+        $this->call([
+            MailProviderSeeder::class,
+        ]);
+        
     }
 }

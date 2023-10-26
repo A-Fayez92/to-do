@@ -88,5 +88,16 @@
     "Users": "المستخدمين",
     "Email": "البريد الإلكتروني",
     "Is admin": "مدير",
-    "Completed": "مكتمل"
+    "Completed": "مكتمل",
+    "Mail Provider": "مزود البريد",
+    "Mail Providers": "مزودي البريد",
+    "Host": "المضيف",
+    "Port": "المنفذ",
+    "Encryption": "التشفير",
+    "From Address": "عنوان المرسل",
+    "From Name": "اسم المرسل",
+    "Username": "اسم المستخدم",
+    "Local domain": "المجال المحلي",
+    "Active": "نشط",
+    "Timeout": "المهلة"
 }
