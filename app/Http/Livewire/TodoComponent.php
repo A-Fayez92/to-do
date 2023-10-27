@@ -24,7 +24,7 @@ class TodoComponent extends Component
         } else {
             return redirect()->route('login');
         }
-        return view('livewire.todo-component', ['todos' => auth()->user()->todos()->orderBy('created_at', 'desc')->paginate(5)])
+        return view('livewire.todo-component', ['todos' => auth()->user()->todos()->orderBy('completed_at' , 'asc')->orderBy('created_at', 'desc')->paginate(5)])
             ->extends('layouts.app')->section('content');
     }
 

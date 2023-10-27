@@ -25,6 +25,7 @@ class TaskComponent extends Component
         return view('livewire.task-component', [
             'tasks' => $this->todo->tasks()
                 ->orderByDesc('created_at')
+                ->orderBy('completed_at' , 'asc')
                 ->paginate(5),
         ])
             ->extends('layouts.app', ['title' => 'Tasks'])
@@ -54,6 +55,7 @@ class TaskComponent extends Component
         $this->todo = $this->todo->fresh();
         Toaster::success('toaster.success.update_task');
         }catch(\Throwable $th){
+            \Log::error($th);
             Toaster::error('toaster.error.update_task');
         }
     }
