@@ -4,6 +4,7 @@ namespace App\Models;
 
 use App\Models\Todo;
 use App\Models\User;
+use App\Notifications\CrudNotification;
 use Illuminate\Database\Eloquent\Model;
 use Spatie\Translatable\HasTranslations;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -13,7 +14,7 @@ use Illuminate\Database\Eloquent\Relations\HasOneThrough;
 
 class Task extends Model
 {
-    use HasFactory , SoftDeletes , HasTranslations;
+    use HasFactory, SoftDeletes, HasTranslations;
 
     /**
      * The attributes for translation
@@ -66,5 +67,42 @@ class Task extends Model
     public function user(): BelongsTo
     {
         return $this->todo->user();
+    }
+
+    /**
+     * Trigger Crud Events for Task
+     */
+    public static function boot()
+    {
+        parent::boot();
+
+        static::created(function ($task) {
+            $task->notifyCrudEvent('created', trans('notifications.task.created_message', ['task' => $task->title]));
+        });
+
+        static::updated(function ($task) {
+            if ($task->completed_at) {
+                $task->notifyCrudEvent('completed', trans('notifications.task.completed_message', ['task' => $task->title]));
+            } else {
+                $task->notifyCrudEvent('updated', trans('notifications.task.updated_message', ['task' => $task->title]));
+            }
+        });
+
+        static::deleted(function ($task) {
+            $task->notifyCrudEvent('deleted', trans('notifications.task.deleted_message', ['task' => $task->title]));
+        });
+    }
+
+    /**
+     * Notify a CRUD event
+     *
+     * @param string $eventType
+     * @param string $message
+     */
+    private function notifyCrudEvent($eventType, $message)
+    {
+        $subject = trans('notifications.task.' . $eventType . '_subject');
+        $route = route('todo.tasks', $this->todo->id);
+        $this->todo->user->notify(new CrudNotification($subject, $message, $route));
     }
 }

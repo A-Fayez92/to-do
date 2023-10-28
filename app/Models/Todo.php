@@ -4,6 +4,7 @@ namespace App\Models;
 
 use App\Models\Task;
 use App\Models\User;
+use App\Notifications\CrudNotification;
 use Illuminate\Database\Eloquent\Model;
 use Spatie\Translatable\HasTranslations;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -90,5 +91,45 @@ class Todo extends Model
     public function getCompletedPercentageAttribute(): int
     {
         return $this->completed_tasks_count > 0 ? round(($this->completed_tasks_count / $this->tasks()->count()) * 100) : 0;
+    }
+
+    /**
+     * Trigger Crud Events for Task
+     */
+    public static function boot()
+    {
+        parent::boot();
+
+        static::created(function ($todo) {
+            $todo->notifyCrudEvent('created', trans('notifications.todo.created_message', ['todo' => $todo->title]));
+        });
+
+        static::updated(function ($todo) {
+            if ($todo->completed_at) {
+                $todo->notifyCrudEvent('completed', trans('notifications.todo.completed_message', ['todo' => $todo->title]));
+
+                if ($todo->user->is_all_todos_completed)
+                    $todo->notifyCrudEvent('all_completed', trans('notifications.todo.all_completed_message'));
+            } else {
+                $todo->notifyCrudEvent('updated', trans('notifications.todo.updated_message', ['todo' => $todo->title]));
+            }
+        });
+
+        static::deleted(function ($todo) {
+            $todo->notifyCrudEvent('deleted', trans('notifications.todo.deleted_message', ['todo' => $todo->title]));
+        });
+    }
+
+    /**
+     * Notify a CRUD event
+     *
+     * @param string $eventType
+     * @param string $message
+     */
+    private function notifyCrudEvent($eventType, $message)
+    {
+        $subject = trans('notifications.todo.' . $eventType . '_subject');
+        $route = route('todos', $this->id);
+        $this->user->notify(new CrudNotification($subject, $message, $route));
     }
 }

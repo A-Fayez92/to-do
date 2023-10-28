@@ -93,6 +93,17 @@ class User extends Authenticatable implements FilamentUser
 
     public function tasks(): HasManyThrough
     {
-        return $this->hasManyThrough(Task::class , Todo::class);
+        return $this->hasManyThrough(Task::class, Todo::class);
+    }
+
+    /**
+     * Check if all Todos are completed
+     * 
+     * @return bool
+     */
+
+    public function getIsAllTodosCompletedAttribute(): bool
+    {
+        return $this->todos()->whereNull('completed_at')->count() === 0;
     }
 }
