@@ -105,7 +105,7 @@ class Task extends Model
     {
         $subject = trans('notifications.task.' . $eventType . '_subject');
         $route = route('todo.tasks', $this->todo->id);
-        $this->todo->user->notify(new CrudNotification($subject, $message, $route));
+        $this->todo->user->notify((new CrudNotification($subject, $message, $route))->locale($this->todo->user->locale));
     }
 
     /**

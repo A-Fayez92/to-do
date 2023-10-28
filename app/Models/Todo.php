@@ -132,7 +132,7 @@ class Todo extends Model
     {
         $subject = trans('notifications.todo.' . $eventType . '_subject');
         $route = route('todos', $this->id);
-        $this->user->notify(new CrudNotification($subject, $message, $route));
+        $this->user->notify((new CrudNotification($subject, $message, $route))->locale($this->user->locale));
     }
 
     /**
