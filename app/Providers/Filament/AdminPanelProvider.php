@@ -62,6 +62,9 @@ class AdminPanelProvider extends PanelProvider
                 SpatieLaravelTranslatablePlugin::make()
                     ->defaultLocales(['en', 'ar'])
 
+            ])
+            ->resources([
+                config('filament-logger.activity_resource')
             ]);
     }
 }

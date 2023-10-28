@@ -7,14 +7,16 @@ use App\Models\User;
 use App\Notifications\CrudNotification;
 use Illuminate\Database\Eloquent\Model;
 use Spatie\Translatable\HasTranslations;
+use Spatie\Activitylog\Traits\LogsActivity;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\HasOneThrough;
+use Spatie\Activitylog\LogOptions;
 
 class Task extends Model
 {
-    use HasFactory, SoftDeletes, HasTranslations;
+    use HasFactory, SoftDeletes, HasTranslations, LogsActivity;
 
     /**
      * The attributes for translation
@@ -104,5 +106,18 @@ class Task extends Model
         $subject = trans('notifications.task.' . $eventType . '_subject');
         $route = route('todo.tasks', $this->todo->id);
         $this->todo->user->notify(new CrudNotification($subject, $message, $route));
+    }
+
+    /**
+     * Get the options for logging for the model.
+     * 
+     * @return LogOptions
+     * 
+     */
+
+    public function getActivitylogOptions(): LogOptions
+    {
+        return LogOptions::defaults()
+            ->logOnly(['*']);
     }
 }

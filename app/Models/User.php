@@ -13,10 +13,12 @@ use Illuminate\Database\Eloquent\Relations\HasManyThrough;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Filament\Models\Contracts\FilamentUser;
 use Filament\Panel;
+use Spatie\Activitylog\Traits\LogsActivity;
+use Spatie\Activitylog\LogOptions;
 
 class User extends Authenticatable implements FilamentUser
 {
-    use HasApiTokens, HasFactory, Notifiable;
+    use HasApiTokens, HasFactory, Notifiable, LogsActivity;
 
     /**
      * The attributes that are mass assignable.
@@ -105,5 +107,19 @@ class User extends Authenticatable implements FilamentUser
     public function getIsAllTodosCompletedAttribute(): bool
     {
         return $this->todos()->whereNull('completed_at')->count() === 0;
+    }
+
+
+    /**
+     * Get the options for logging for the model.
+     * 
+     * @return LogOptions
+     * 
+     */
+
+    public function getActivitylogOptions(): LogOptions
+    {
+        return LogOptions::defaults()
+            ->logOnly(['*']);
     }
 }

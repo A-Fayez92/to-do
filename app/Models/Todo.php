@@ -7,14 +7,16 @@ use App\Models\User;
 use App\Notifications\CrudNotification;
 use Illuminate\Database\Eloquent\Model;
 use Spatie\Translatable\HasTranslations;
+use Spatie\Activitylog\Traits\LogsActivity;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Spatie\Activitylog\LogOptions;
 
 class Todo extends Model
 {
-    use HasFactory, SoftDeletes, HasTranslations;
+    use HasFactory, SoftDeletes, HasTranslations, LogsActivity;
 
     /**
      * The attributes for translation
@@ -131,5 +133,18 @@ class Todo extends Model
         $subject = trans('notifications.todo.' . $eventType . '_subject');
         $route = route('todos', $this->id);
         $this->user->notify(new CrudNotification($subject, $message, $route));
+    }
+
+    /**
+     * Get the options for logging for the model.
+     * 
+     * @return LogOptions
+     * 
+     */
+
+    public function getActivitylogOptions(): LogOptions
+    {
+        return LogOptions::defaults()
+            ->logOnly(['*']);
     }
 }
