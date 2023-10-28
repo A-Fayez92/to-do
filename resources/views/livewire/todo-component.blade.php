@@ -1,5 +1,5 @@
 <div>
-    <div class="p-4 bg-orange-50 border rounded-lg border-red-700 my-20 mx-auto max-w-3xl ">
+    <div class="p-4 bg-orange-50 border rounded-lg border-red-700 my-20 mx-auto max-w-3xl flex-col overflow-y-auto">
         <div class="font-normal mb-2">
             <p class="text-2xl mb-0.5">{{ $completed_percentage }}%</p>
             <p class="text-xs">{{ __('Profile Completion') }}</p>
@@ -26,7 +26,7 @@
             </a>
         </div>
         @forelse ($todos as $todo)
-        <div class="mb-2 flex items-center justify-between">
+        <div class="mb-2 items-center justify-between md:flex sm:flex-row">
             <a href="{{ route('todo.tasks', $todo) }}">
                 <div class="flex cursor-pointer text-md">
                     <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-circle-check" width="16"
@@ -42,7 +42,7 @@
                         $todo->CompletedPercentage . '%)' }}</p>
                 </div>
             </a>
-            <div class="flex">
+            <div class="md:flex">
                 <a href="#" wire:click="$dispatch('openModal', { component: 'modals.edit-todo', arguments: { id: {{
                     $todo->id }} } })" wire:key="edit-todo-{{ $todo->id }}">
                     <div class="flex cursor-pointer text-md">

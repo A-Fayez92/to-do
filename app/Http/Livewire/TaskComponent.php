@@ -7,10 +7,11 @@ use App\Models\Todo;
 use Livewire\Component;
 use Livewire\WithPagination;
 use Masmerise\Toaster\Toaster;
+use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 
 class TaskComponent extends Component
 {
-    use WithPagination;
+    use WithPagination , AuthorizesRequests;
 
     public Todo $todo;
 
@@ -28,7 +29,7 @@ class TaskComponent extends Component
                 ->orderBy('completed_at' , 'asc')
                 ->paginate(5),
         ])
-            ->extends('layouts.app', ['title' => 'Tasks'])
+            ->extends('layouts.app', ['title' => __('Tasks')])
             ->section('content');
     }
 

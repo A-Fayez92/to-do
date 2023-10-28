@@ -2,7 +2,6 @@
 
 namespace App\Filament\Resources;
 
-use Filament\Forms;
 use App\Models\Todo;
 use Filament\Tables;
 use Filament\Forms\Form;
@@ -11,10 +10,8 @@ use Filament\Resources\Resource;
 use Filament\Forms\Components\Select;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Forms\Components\TextInput;
-use Illuminate\Database\Eloquent\Builder;
 use Filament\Resources\Concerns\Translatable;
 use App\Filament\Resources\TodoResource\Pages;
-use Illuminate\Database\Eloquent\SoftDeletingScope;
 use App\Filament\Resources\TodoResource\RelationManagers;
 use Filament\Tables\Columns\IconColumn;
 

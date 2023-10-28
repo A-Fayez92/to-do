@@ -22,15 +22,15 @@
     @if(!auth()->check())
 
     <div class="max-w-6xl px-6 py-4 mx-auto text-center">
-        <h1 class="text-4xl font-bold text-gray-800 dark:text-white md:text-5xl">{{ __("Welcome to") }} <span
+        <h1 class="text-3xl font-bold text-gray-800 dark:text-white md:text-5xl">{{ __("Welcome to") }} <span
                 class="text-indigo-500">{{ __("Todo List") }}</span></h1>
-        <p class="mt-2 text-lg text-gray-600 dark:text-gray-400"> {{ __('A simple todo list app built with Laravel and Tailwind CSS.') }}
+        <p class="mt-2 md:text-lg text-sm text-gray-600 dark:text-gray-400"> {{ __('A simple todo list app built with Laravel and Tailwind CSS.') }}
         <div class="flex justify-center mt-6">
             <a href="{{ route('login') }}"
-                class="px-4 py-2 text-lg font-semibold text-white transition-colors duration-200 transform bg-indigo-500 rounded-md hover:bg-indigo-400 focus:outline-none focus:bg-indigo-400">{{
+                class="px-4 py-2 mx-2 md:text-lg text-sm font-semibold text-white transition-colors duration-200 transform bg-indigo-500 rounded-md hover:bg-indigo-400 focus:outline-none focus:bg-indigo-400">{{
                 __('Login') }}</a>
             <a href="{{ route('register') }}"
-                class="px-4 py-2 ml-4 text-lg font-semibold text-indigo-500 transition-colors duration-200 transform bg-white rounded-md hover:bg-gray-100 focus:outline-none focus:bg-gray-100">{{
+                class="px-4 py-2 ml-4 md:text-lg text-sm font-semibold text-indigo-500 transition-colors duration-200 transform bg-white rounded-md hover:bg-gray-100 focus:outline-none focus:bg-gray-100">{{
                 __('Register') }}</a>
         </div>
     </div>

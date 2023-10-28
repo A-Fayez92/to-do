@@ -2,7 +2,6 @@
 
 namespace App\Filament\Resources;
 
-use Filament\Forms;
 use App\Models\User;
 use Filament\Tables;
 use Filament\Forms\Form;
@@ -12,10 +11,7 @@ use Filament\Forms\Components\Checkbox;
 use Filament\Tables\Columns\IconColumn;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Forms\Components\TextInput;
-use Illuminate\Database\Eloquent\Builder;
-use Filament\Tables\Columns\BooleanColumn;
 use App\Filament\Resources\UserResource\Pages;
-use Illuminate\Database\Eloquent\SoftDeletingScope;
 use App\Filament\Resources\UserResource\RelationManagers;
 
 class UserResource extends Resource

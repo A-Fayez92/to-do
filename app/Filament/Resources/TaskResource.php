@@ -2,23 +2,16 @@
 
 namespace App\Filament\Resources;
 
-use DateTime;
-use Filament\Forms;
 use App\Models\Task;
 use Filament\Tables;
 use Filament\Forms\Form;
 use Filament\Tables\Table;
 use Filament\Resources\Resource;
-use Filament\Forms\Components\Select;
 use Filament\Tables\Columns\IconColumn;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Forms\Components\TextInput;
-use Illuminate\Database\Eloquent\Builder;
 use Filament\Resources\Concerns\Translatable;
 use App\Filament\Resources\TaskResource\Pages;
-use Filament\Forms\Components\BelongsToSelect;
-use Illuminate\Database\Eloquent\SoftDeletingScope;
-use App\Filament\Resources\TaskResource\RelationManagers;
 
 class TaskResource extends Resource
 {
@@ -41,7 +34,7 @@ class TaskResource extends Resource
         return $table
             ->columns([
                 TextColumn::make('title')->translateLabel(),
-                IconColumn::make('__')->boolean()->label(__('Completed'))->getStateUsing(fn ($record) => $record->completed_at ? true : false ),
+                IconColumn::make('__')->boolean()->label(__('Completed'))->getStateUsing(fn ($record) => $record->completed_at ? true : false),
                 TextColumn::make('completed_at')->date()->translateLabel(),
             ])
             ->filters([

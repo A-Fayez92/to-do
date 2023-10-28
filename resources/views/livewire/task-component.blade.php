@@ -1,5 +1,5 @@
 <div>
-  <div class="p-4 bg-orange-50 border rounded-lg border-red-700 my-20 mx-auto max-w-3xl ">
+  <div class="p-4 bg-orange-50 border rounded-lg border-red-700 my-20 mx-auto max-w-3xl overflow-y-auto">
     <div class="font-normal mb-2">
       <h1 class="text-2xl font-bold text-gray-800 dark:text-white md:text-2xl">{{ $todo->title }}</h1>
       <p class="text-xs">{{ __('Todo Compleation Percentage') }}</p>
@@ -28,7 +28,7 @@
       </a>
     </div>
     @forelse ($tasks as $task)
-    <div class="mb-2 flex items-center justify-between">
+    <div class="mb-2 md:flex items-center justify-between sm:flex-row">
       <div class="flex cursor-pointer text-md"  wire:click.prevent="toggle({{$task->id }})" wire:key="toggle-task-{{ $task->id }}">
         <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-circle-check" width="16" height="16"
           viewBox="0 0 24 24" stroke-width="2" stroke={{ $task->completed_at ? '#fff' : '#212121' }}
@@ -41,7 +41,7 @@
         </svg>
 
       </div>
-      <div class="flex">
+      <div class="md:flex">
         <a href="#" wire:click.prevent="$dispatch('openModal', { component: 'modals.edit-task', arguments: { id: {{
                 $task->id }} } })" wire:key="edit-task-{{ $task->id }}">
           <div class="flex cursor-pointer text-md">

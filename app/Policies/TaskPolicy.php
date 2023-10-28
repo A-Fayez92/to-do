@@ -4,7 +4,6 @@ namespace App\Policies;
 
 use App\Models\Task;
 use App\Models\User;
-use Illuminate\Auth\Access\Response;
 
 class TaskPolicy
 {
@@ -13,8 +12,11 @@ class TaskPolicy
      */
     public function before(User $user): ?bool
     {
-        return $user->is_admin;
-    }   
+        if ($user->is_admin) {
+            return true;
+        }
+        return null;
+    }
     /**
      * Determine whether the user can view any models.
      */

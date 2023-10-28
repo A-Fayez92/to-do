@@ -32,6 +32,8 @@ class MailProviderObserver
                 $firstMailProvider = MailProvider::first();
                 if ($firstMailProvider) {
                     $firstMailProvider->update(['active' => true]);
+                } else {
+                    $mailProvider->restore();
                 }
             }
         } catch (\Exception $e) {

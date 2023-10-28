@@ -2,7 +2,6 @@
 
 namespace App\Http\Livewire;
 
-use App\Models\Todo;
 use Livewire\Component;
 use Livewire\WithPagination;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
@@ -25,7 +24,8 @@ class TodoComponent extends Component
             return redirect()->route('login');
         }
         return view('livewire.todo-component', ['todos' => auth()->user()->todos()->orderBy('completed_at' , 'asc')->orderBy('created_at', 'desc')->paginate(5)])
-            ->extends('layouts.app')->section('content');
+            ->extends('layouts.app',['title' => __('Todo Lists')])
+            ->section('content');
     }
 
     public function refreshTodos()
