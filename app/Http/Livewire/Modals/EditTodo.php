@@ -13,7 +13,6 @@ class EditTodo extends ModalComponent
     public $title , $id , $todo;
     public function render()
     {
-        $this->title = Todo::findOrfail($this->id)->getTranslations('title');
         return view('livewire.modals.edit-todo');
     }
 
@@ -21,6 +20,7 @@ class EditTodo extends ModalComponent
     {
         $this->id = $id;
         $this->todo = Todo::findOrfail($this->id);
+        $this->title = $this->todo->getTranslations('title');
         $this->authorize('update' , $this->todo);
     }
 

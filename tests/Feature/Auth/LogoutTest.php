@@ -17,7 +17,7 @@ class LogoutTest extends TestCase
         $user = User::factory()->create();
         $this->be($user);
 
-        $this->post(route('logout'))
+        $this->get(route('logout'))
             ->assertRedirect(route('home'));
 
         $this->assertFalse(Auth::check());
@@ -26,7 +26,7 @@ class LogoutTest extends TestCase
     /** @test */
     public function an_unauthenticated_user_can_not_log_out()
     {
-        $this->post(route('logout'))
+        $this->get(route('logout'))
             ->assertRedirect(route('login'));
 
         $this->assertFalse(Auth::check());

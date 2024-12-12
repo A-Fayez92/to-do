@@ -34,13 +34,17 @@ class VerifyTest extends TestCase
     /** @test */
     public function can_resend_verification_email()
     {
-        $user = User::factory()->create();
+        $user = User::factory(
+            [
+            'email_verified_at' => null,
+            ]
+        )->create();
 
         Livewire::actingAs($user);
 
         Livewire::test('auth.verify')
             ->call('resend')
-            ->assertEmitted('resent');
+            ->assertDispatched('resent');
     }
 
     /** @test */
